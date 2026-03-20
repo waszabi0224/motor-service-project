@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    container_name: motor-service-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: kutyagumi
+      POSTGRES_DB: motor-service
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
