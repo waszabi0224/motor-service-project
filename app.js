@@ -1,20 +1,18 @@
-//endpointok kezelése,
+import express from "express";
+import router from "./app/routes/authRoutes.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
-import express from 'express';
-import pool from './config/db.js';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(express.json());
 
-pool.query("SELECT NOW()", (err, result) => {
-    if(err) {
-        console.log("hiba: ", err);
-    } else {
-        console.log("ok", result.rows);
-    }
-});
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "app", "views"));
 
-app.get('/', (req, res) => {
-    res.send("szihelo");
-});
+app.use(express.urlencoded({ extended: true }));
+app.use("/auth", router);
 
 export default app;
