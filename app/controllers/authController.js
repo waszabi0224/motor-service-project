@@ -74,6 +74,13 @@ const loginUser = async (req, res) => {
             });
         }
 
+        req.session.user = {
+            id: user.id,
+            email: user.email,
+            role: user.role
+        };
+        console.log(req.session.user);
+        return res.redirect("/home");
     } catch(error) {
         return res.status(500).render("pages/login", {
             error: "Hiba történt a bejelentkezés során!"
